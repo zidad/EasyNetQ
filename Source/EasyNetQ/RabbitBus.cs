@@ -58,6 +58,13 @@ namespace EasyNetQ
             PublishAsync(message, topic).Wait();
         }
 
+        public void Publish<T>(T message, Action<IPublishConfiguration> configuration) where T : class
+        {
+            var publishConfiguration = new PublishConfiguration();
+            configuration(publishConfiguration);
+            throw new NotImplementedException();
+        }
+
         public virtual Task PublishAsync<T>(T message) where T : class
         {
             Preconditions.CheckNotNull(message, "message");
@@ -81,6 +88,13 @@ namespace EasyNetQ
                     };
                     return advancedBus.PublishAsync(exchange, topic, false, false, easyNetQMessage); 
                 });
+        }
+
+        public Task PublishAsync<T>(T message, Action<IPublishConfiguration> configuration) where T : class
+        {
+            var publishConfiguration = new PublishConfiguration();
+            configuration(publishConfiguration);
+            throw new NotImplementedException();
         }
 
         public virtual ISubscriptionResult Subscribe<T>(string subscriptionId, Action<T> onMessage) where T : class

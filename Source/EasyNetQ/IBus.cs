@@ -27,6 +27,14 @@ namespace EasyNetQ
         void Publish<T>(T message, string topic) where T : class;
 
         /// <summary>
+        /// Publishes a message with a topic
+        /// </summary>
+        /// <typeparam name="T">The message type</typeparam>
+        /// <param name="message">The message to publish</param>
+        /// <param name="configuration">Advanced configuration for message publishing</param>
+        void Publish<T>(T message, Action<IPublishConfiguration> configuration) where T : class;
+
+        /// <summary>
         /// Publishes a message.
         /// When used with publisher confirms the task completes when the publish is confirmed.
         /// Task will throw an exception if the confirm is NACK'd or times out.
@@ -46,6 +54,17 @@ namespace EasyNetQ
         /// <param name="topic">The topic string</param>
         /// <returns></returns>
         Task PublishAsync<T>(T message, string topic) where T : class;
+
+        /// <summary>
+        /// Publishes a message with a topic.
+        /// When used with publisher confirms the task completes when the publish is confirmed.
+        /// Task will throw an exception if the confirm is NACK'd or times out.
+        /// </summary>
+        /// <typeparam name="T">The message type</typeparam>
+        /// <param name="message">The message to publish</param>
+        /// <param name="configuration">Advanced configuration for message publishing</param>
+        /// <returns></returns>
+        Task PublishAsync<T>(T message, Action<IPublishConfiguration> configuration) where T : class;
 
         /// <summary>
         /// Subscribes to a stream of messages that match a .NET type.
